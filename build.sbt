@@ -8,8 +8,17 @@ ThisBuild / scalaVersion := "2.12.4"
 ThisBuild / name := "Scala Foo"
 //ThisBuild / useSuperShell := false
 
-lazy val root = (project in file(".")).
-  settings(
+lazy val foo = (project in file("."))
+  .aggregate(core)
+  .dependsOn(core)
+  .enablePlugins(JavaAppPackaging)
+  .settings(
+    name := "Foo"
+  )
+
+lazy val core = (project in file("core"))
+  .settings(
+    name := "Foo Core",
     libraryDependencies ++= Seq(
       Dependencies.catsCore.value,
       Dependencies.catsEffect.value,

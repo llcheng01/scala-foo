@@ -1,4 +1,4 @@
-package counter
+package example
 
 class Counter(val num: Int) {
     def get = num
