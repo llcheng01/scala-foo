@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    environment:
+      SBT_VERSION: 1.4.7
+      IMAGE_NAME: johnny4nrhl/scala-foo-vault
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
@@ -8,22 +11,9 @@ jobs:
     # CircleCI maintains a library of pre-built images
 
     working_directory: ~/scala-foo
-    environment:
-      SBT_VERSION: 1.4.7
 
     steps:
       - run: echo 'export ARTIFACT_BUILD=$CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM.zip' >> $BASH_ENV
-#      - run:
-#          name: Get sbt binary
-#          command: |
-#                    apt update && apt install -y curl
-#                    curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb
-#                    dpkg -i sbt-$SBT_VERSION.deb
-#                    rm sbt-$SBT_VERSION.deb
-#                    apt-get update
-#                    apt-get install -y python-pip git
-#                    pip install awscli
-#                    apt-get clean && apt-get autoclean
       - checkout
       - restore_cache:
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
@@ -48,11 +38,41 @@ jobs:
             - "~/.ivy2/cache"
             - "~/.sbt"
             - "~/.m2"
-            # run tests!
-#      - run:
-#          name: Run Test
-#          command: cat /dev/null | sbt test:test
+      - run:
+          name: Run Test
+          command: cat /dev/null | sbt test:test
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: docker build -t $IMAGE_NAME:latest .
 #      - deploy:
 #          command: |
 #            mv target/universal/samplescala.zip $CIRCLE_ARTIFACTS/$ARTIFACT_BUILD
 #            aws s3 cp $CIRCLE_ARTIFACTS/$ARTIFACT_BUILD s3://samplescala.blogs/builds/ --metadata {\"git_sha1\":\"$CIRCLE_SHA1\"}
+  publish-latest:
+    environment:
+      IMAGE_NAME: scala-foo-vault
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            echo "$DOCKERHUB_PWD" | docker login -u "$DOCKERHUB_USER" --password-stdin
+            docker push $IMAGE_NAME:latest
+workflows:
+  version: 2
+  build-master:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+      - publish-latest:
+          context: foo-context
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
