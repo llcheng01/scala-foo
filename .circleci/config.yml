@@ -1,4 +1,5 @@
-version: 2
+version: 2.1
+
 jobs:
   build:
     environment:
@@ -45,17 +46,26 @@ jobs:
       - run:
           name: Build Docker image
           command: docker build -t $IMAGE_NAME:latest .
-#      - deploy:
-#          command: |
-#            mv target/universal/samplescala.zip $CIRCLE_ARTIFACTS/$ARTIFACT_BUILD
-#            aws s3 cp $CIRCLE_ARTIFACTS/$ARTIFACT_BUILD s3://samplescala.blogs/builds/ --metadata {\"git_sha1\":\"$CIRCLE_SHA1\"}
+      - run:
+          name: Archive Docker Image
+          command: docker save -o image.tar $IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./image.tar
+
   publish-latest:
     environment:
-      IMAGE_NAME: scala-foo-vault
+      IMAGE_NAME: johnny4nrhl/scala-foo-vault
     docker:
       - image: circleci/buildpack-deps:stretch
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - setup_remote_docker
+      - run:
+          name: Load archived Docker Image
+          commad: docker load -i /tmp/workspace/image.tar
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
