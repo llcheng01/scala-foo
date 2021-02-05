@@ -13,7 +13,8 @@ lazy val foo = (project in file("."))
   .dependsOn(core)
   .enablePlugins(JavaAppPackaging)
   .settings(
-    name := "Foo"
+    name := "Foo",
+    libraryDependencies += scalaTest % Test
   )
 
 lazy val core = (project in file("core"))
