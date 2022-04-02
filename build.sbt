@@ -5,7 +5,7 @@ import Dependencies._
 
 ThisBuild / organization := "com.example"
 ThisBuild / scalaVersion := "2.12.4"
-ThisBuild / name := "Scala Foo"
+ThisBuild / name := "Scala-Foo"
 //ThisBuild / useSuperShell := false
 
 lazy val foo = (project in file("."))
