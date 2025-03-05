@@ -13,6 +13,7 @@ object Dependencies {
 
   val miniTestVersion   = "2.7.0"
   val scalaCheckVersion = "1.14.1"
+  val munitVersion      = "1.0.0"
 
 
   // Libraries
@@ -22,6 +23,8 @@ object Dependencies {
   val miniTest     = Def.setting("io.monix" %% "minitest"      % miniTestVersion % "test")
   val miniTestLaws = Def.setting("io.monix" %% "minitest-laws" % miniTestVersion % "test")
 
+  val munit       = Def.setting("org.scalameta" %% "munit" % munitVersion % Test)
+
   val http4sBlazeServer = Def.setting("org.http4s" %% "http4s-blaze-server" % http4sVersion)
   val http4sBlazeClient = Def.setting("org.http4s" %% "http4s-blaze-client" % http4sVersion)
   val http4sCirce       = Def.setting("org.http4s" %% "http4s-circe"        % http4sVersion)
@@ -30,7 +33,9 @@ object Dependencies {
   val logback = Def.setting("ch.qos.logback"      % "logback-classic" % logbackVersion)
   val janino  = Def.setting("org.codehaus.janino" % "janino"          % janinoVersion)
 
-  val circe = Def.setting("io.circe" %% "circe-generic" % circeVersion)
+  val circeCore    = Def.setting("io.circe" %% "circe-core"    % circeVersion)
+  val circeParser  = Def.setting("io.circe" %% "circe-parser"  % circeVersion)
+  val circeGeneric = Def.setting("io.circe" %% "circe-generic" % circeVersion)
   
-  lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
+  lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8"
 }
