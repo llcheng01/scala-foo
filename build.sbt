@@ -8,26 +8,12 @@ ThisBuild / organization := "com.example"
 // ThisBuild / name := "Scala-Foo"
 //ThisBuild / useSuperShell := false
 
-<<<<<<< HEAD
-lazy val foo = (project in file("."))
-  .aggregate(core)
-  .dependsOn(core)
-  .enablePlugins(JavaAppPackaging)
-  .settings(
-    name := "Foo",
-    libraryDependencies += scalaTest % Test
-  )
 
-lazy val core = (project in file("core"))
-  .settings(
-    name := "Foo Core",
-=======
 def createModule(moduleName: String): Project = 
   Project(id = s"$moduleName", base = file(moduleName))
   .settings(
     name := s"$moduleName",
     scalaVersion := "2.13.12",
->>>>>>> 355efe4 (Re-organize projects into modules)
     libraryDependencies ++= Seq(
       Dependencies.catsCore.value,
       Dependencies.catsEffect.value,
