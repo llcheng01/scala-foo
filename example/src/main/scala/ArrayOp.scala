@@ -19,29 +19,27 @@ object ArrayOp extends App {
 //        case None =>
 //          idMap(x, 1)
 //      }
+    // SELECT id, count(*) FROM XX
+    // group by id DESC
+    // aggregration
 
-
-      // SELECT id, count(*) FROM XX
-      // group by id DESC
-      // aggregration
-
-      //
-      // To sort the result again. It wiil
-      // have to group by count/frequency again
-      // and sort by id
-
-      // if (idMap.contains(x)) {
-      //   count = map.get(id)
-      //   idMap(x, count + 1)
-      // } else {
-      //   idMap(x, 1)
-      // }
-    }
-    //    idMap.sort(_.value)
     //
-    //    idMap.map(println(k, v))
+    // To sort the result again. It wiil
+    // have to group by count/frequency again
+    // and sort by id
 
+    // if (idMap.contains(x)) {
+    //   count = map.get(id)
+    //   idMap(x, count + 1)
+    // } else {
+    //   idMap(x, 1)
+    // }
   }
+  //    idMap.sort(_.value)
+  //
+  //    idMap.map(println(k, v))
+
+}
 
 //  def findMissing(numbers: List[Int]) = {
 //    var result: Map[Int, Int] = collections.mutable.Map[Int, Int]()
@@ -60,8 +58,6 @@ object ArrayOp extends App {
 //
 //    result.reduce(_ == 0)
 //  }
-
-
 //  numbers.sorted.scanLeft(0)((acc, cur) => val prev = acc; cur - prev == 1 )
 //
 //  def loop(numbers: List, map: Map.Empty()):Map {

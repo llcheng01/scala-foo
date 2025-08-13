@@ -12,7 +12,7 @@ object LongestConsecutive extends App {
 
   def lengthOfLongestSubstring(s: String): Int = {
     s.scanLeft("")((currStr: String, currChar: Char) =>
-      currStr.substring(1 + currStr.indexOf(currChar.toString)) + currChar)
+        currStr.substring(1 + currStr.indexOf(currChar.toString)) + currChar)
       // Up to this point we would get vector like this
       // Vector(, a, ab, abc, bca, cab, abc, cb, b)
       // now if we take max of length would get the answer
@@ -49,7 +49,7 @@ object LongestConsecutive extends App {
 
   def flattenStringArrays[A](arr: Array[A]): Array[String] =
     arr.flatMap {
-      case s: String => Array(s)
+      case s: String   => Array(s)
       case a: Array[_] => flattenStringArrays(a)
     }
 

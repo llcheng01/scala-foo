@@ -1,5 +1,25 @@
+# Scala specific
 *.class
 *.log
+
+# sbt target folders
 target/
 **target/
+project/target/
+
+# IntelliJ IDEA files
 .idea/
+*.iml
+*.ipr
+*.iws
+
+# sbt generated files
+dist/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Operating System specific
+.DS_Store
+Thumbs.db

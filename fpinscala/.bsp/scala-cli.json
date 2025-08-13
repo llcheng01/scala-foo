@@ -1,0 +1,20 @@
+{
+  "name": "scala-cli",
+  "argv": [
+    "/usr/local/bin/scala-cli",
+    "bsp",
+    "--json-options",
+    "/Users/johnnie.cheng/Documents/learning/scala-foo/fpinscala/.scala-build/ide-options-v2.json",
+    "--json-launcher-options",
+    "/Users/johnnie.cheng/Documents/learning/scala-foo/fpinscala/.scala-build/ide-launcher-options.json",
+    "--envs-file",
+    "/Users/johnnie.cheng/Documents/learning/scala-foo/fpinscala/.scala-build/ide-envs.json",
+    "/Users/johnnie.cheng/Documents/learning/scala-foo/fpinscala"
+  ],
+  "version": "1.7.0",
+  "bspVersion": "2.1.1",
+  "languages": [
+    "scala",
+    "java"
+  ]
+}

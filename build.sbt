@@ -4,67 +4,78 @@ import java.io.File
 import Dependencies._
 
 ThisBuild / organization := "com.example"
-// ThisBuild / scalaVersion := "2.13.12"
+ThisBuild / scalaVersion := "2.13.12"
 // ThisBuild / name := "Scala-Foo"
 //ThisBuild / useSuperShell := false
 
-
-def createModule(moduleName: String): Project = 
-  Project(id = s"$moduleName", base = file(moduleName))
-  .settings(
-    name := s"$moduleName",
-    scalaVersion := "2.13.12",
-    libraryDependencies ++= Seq(
-      Dependencies.catsCore.value,
-      Dependencies.catsEffect.value,
-      // Dependencies.miniTest.value,
-      // Dependencies.miniTestLaws.value,
-      Dependencies.munit.value,
-      scalaTest % Test
-    )
+lazy val commonSettings = Seq(
+  scalacOptions ++= Seq(
+    "-deprecation",
+    "-feature",
+    "-unchecked",
+    "-language:higherKinds"
+  ),
+  scalacOptions --= Seq(
+    "-Xlint:by-name-right-associative",
+    "-Xlint:nullary-override",
+    "-Xlint:unsound-match",
+    "-Yno-adapted-args"
+  ),
+  libraryDependencies ++= Seq(
+    Dependencies.catsCore.value,
+    Dependencies.catsEffect.value,
+    Dependencies.munit.value,
+    Dependencies.scalaTest % Test
   )
+)
 
 lazy val root = (project in file("."))
-  .aggregate(fpinscala, example, state)
+  .aggregate(fpinscala, example, state, ping, work)
   .settings(
     name := "Scala-Foo",
-    scalaVersion := "2.13.12"
+    scalaVersion := "2.12.18",
+    publish / skip := true
   )
 
-lazy val httpProject = (project in file("ping"))
+lazy val fpinscala = (project in file("fpinscala"))
+  .settings(commonSettings)
   .settings(
-    name := "fp-http",
-    scalaVersion := "2.13.12",
+    name := "fpinscala"
+  )
+
+lazy val example = (project in file("example"))
+  .settings(commonSettings)
+  .settings(
+    name := "example"
+  )
+
+lazy val ping = (project in file("ping"))
+  .settings(commonSettings)
+  .settings(
+    name := "ping",
     libraryDependencies ++= Seq(
       Dependencies.http4sBlazeServer.value,
       Dependencies.http4sBlazeClient.value,
       Dependencies.http4sCirce.value,
       Dependencies.http4sDsl.value,
       Dependencies.logback.value,
-      Dependencies.janino.value,
+      Dependencies.janino.value
     )
   )
 
-lazy val workProject = (project in file("work"))
+lazy val state = (project in file("state"))
+  .settings(commonSettings)
   .settings(
-    name := "fp-work",
-    scalaVersion := "2.13.12",
+    name := "state"
+  )
+
+lazy val work = (project in file("work"))
+  .settings(commonSettings)
+  .settings(
+    name := "ping",
     libraryDependencies ++= Seq(
-      Dependencies.catsCore.value,
-      Dependencies.catsEffect.value,
       Dependencies.circeCore.value,
       Dependencies.circeParser.value,
       Dependencies.circeGeneric.value
     )
   )
-
-lazy val fpinscala = createModule("fpinscala")
-lazy val example = createModule("example")
-lazy val state = createModule("state")
-
-scalacOptions --= Seq(
-  "-Xlint:by-name-right-associative",
-  "-Xlint:nullary-override",
-  "-Xlint:unsound-match",
-  "-Yno-adapted-args"
-)

@@ -7,7 +7,7 @@ object Fibonacci extends App {
       n match {
         case x if x == 0 => 0
         case x if x == 1 => 1
-        case _ => go(n -1) + go(n-2)
+        case _           => go(n - 1) + go(n - 2)
       }
 
     go(n)
@@ -18,7 +18,7 @@ object Fibonacci extends App {
     def go(n: Int, prev: Int, cur: Int): Int =
       n match {
         case x if x == 0 => prev
-        case _ => go(n-1, cur, prev + cur)
+        case _           => go(n - 1, cur, prev + cur)
       }
     go(n, 0, 1)
   }
