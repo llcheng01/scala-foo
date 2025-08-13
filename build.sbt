@@ -79,14 +79,3 @@ lazy val work = (project in file("work"))
       Dependencies.circeGeneric.value
     )
   )
-
-lazy val fpinscala = createModule("fpinscala")
-lazy val example = createModule("example")
-lazy val state = createModule("state")
-
-scalacOptions --= Seq(
-  "-Xlint:by-name-right-associative",
-  "-Xlint:nullary-override",
-  "-Xlint:unsound-match",
-  "-Yno-adapted-args"
-)

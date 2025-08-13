@@ -1,6 +1,7 @@
 # Scala specific
 *.class
 *.log
+
 # sbt target folders
 target/
 **target/
