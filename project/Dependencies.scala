@@ -42,5 +42,8 @@ object Dependencies {
   val circeParser = Def.setting("io.circe" %% "circe-parser" % circeVersion)
   val circeGeneric = Def.setting("io.circe" %% "circe-generic" % circeVersion)
 
+  val circeCore    = Def.setting("io.circe" %% "circe-core"    % circeVersion)
+  val circeParser  = Def.setting("io.circe" %% "circe-parser"  % circeVersion)
+  val circeGeneric = Def.setting("io.circe" %% "circe-generic" % circeVersion)
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8"
 }
